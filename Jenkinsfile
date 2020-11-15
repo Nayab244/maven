@@ -1,25 +1,25 @@
 node('master') 
 {
-   stage('ContinuosDownload') 
-   {
+    stage('Continuos Download') 
+    {
     git 'https://github.com/Nayab244/maven.git'
-   }
-   stage('ContinuosBuild') 
-   {
+    }
+    stage('Continuos Build') 
+    {
     sh 'mvn package'
-   }
-   stage('ContinuosDeployment') 
-   {
-    sh 'scp /home/ubuntu/.jenkins/workspace/ScriptedPipeline/webapp/target/webapp.war ubuntu@172.31.33.5:/var/lib/tomcat8/webapps/testapp.war'
-   }
-   stage('ContinuosTesting') 
-   {
+    }
+    stage('Continuos Deployment') 
+    {
+    sh 'scp /var/lib/jenkins/workspace/ScriptedPipeline/webapp/target/webapp.war jenkins@172.31.38.176:/var/lib/tomcat8/webapps/testapp.war'
+    }
+    stage('Continuos Testing') 
+    {
     git 'https://github.com/Nayab244/FunctionalTesting.git'
-    sh 'java -jar /home/ubuntu/.jenkins/workspace/ScriptedPipeline/testing.jar'
-   }
-   stage('ContinuosDelivery') 
-   {
-    sh 'scp /home/ubuntu/.jenkins/workspace/ScriptedPipeline/webapp/target/webapp.war ubuntu@172.31.37.148:/var/lib/tomcat8/webapps/prodapp.war'
-   }
+    sh 'java -jar /var/lib/jenkins/workspace/ScriptedPipeline/testing.jar'
+    }
+    stage('Continuos Delivery') 
+    {
+    sh 'scp /var/lib/jenkins/workspace/ScriptedPipeline/webapp/target/webapp.war jenkins@172.31.35.101:/var/lib/tomcat8/webapps/prodapp.war'
+    }
 }
-   
+
